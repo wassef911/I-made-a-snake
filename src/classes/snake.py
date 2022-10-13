@@ -1,26 +1,13 @@
 # Import the Turtle Graphics and random modules
-import turtle
 import random
+import turtle
 
-from .utils import get_distance
-
-from .const import Parameters
+from enum import Parameters
+from classes.generic import GenericSnakeGame
+from helpers import get_distance
 from .movement import Movement
 
-class SnakeGame(Movement):
-
-    screen = turtle.Screen()
-    food = turtle.Turtle()
-    stamper = turtle.Turtle()
-    snake = [[0, 0], [0, 20], [0, 40], [0, 60], [0, 80]]
-    snake_direction = 'up'
-    food_position = [0,0]
-    offsets = {
-        "up": (0, 20),
-        "down": (0, -20),
-        "left": (-20, 0),
-        "right": (20, 0)
-    }
+class SnakeGame(GenericSnakeGame, Movement):
 
     def __init__(self):
         self.food_position = self.get_random_food_pos()
@@ -59,12 +46,12 @@ class SnakeGame(Movement):
             Returns true if the snake eats the food, false otherwise
         """
         if get_distance(self.snake[-1], self.food_position) < 20:
-            self.food.goto(SnakeGame.get_random_food_pos())
+            self.food.goto(SnakeGame.get_random_food_position())
             return True
         return False
 
     @staticmethod
-    def get_random_food_pos():
+    def get_random_food_position():
         """
             Create a random position of food.
             Returns (x,y) the food position. Do not forget to consider FOOD_SIZE
@@ -80,7 +67,7 @@ class SnakeGame(Movement):
         """
         self.snake = [[0, 0], [0, 20], [0, 40], [0, 60], [0, 80]]
         self.snake_direction = 'up'
-        self.food_position = SnakeGame.get_random_food_pos()
+        self.food_position = SnakeGame.get_random_food_position()
         self.food.goto(self.food_position)
         self.game_loop()
    

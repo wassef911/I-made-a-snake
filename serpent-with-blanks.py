@@ -1,5 +1,5 @@
 
 
-from src.snake import SnakeGame
+from src.classes.snake import SnakeGame
 
 SnakeGame()
