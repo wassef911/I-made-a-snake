@@ -2,11 +2,7 @@
 import turtle
 import random
 
-# Define program constants
-WIDTH = 500
-HEIGHT = 500
-DELAY = 100  # Milliseconds
-FOOD_SIZE = 10  # The food square dimension
+from src.const import Parameters
 
 # Cell dimensions to navigate in the serpent matrix
 offsets = {
@@ -18,21 +14,25 @@ offsets = {
 
 # Snake movements
 def go_up():
-     # TO COMPLETE
-
+    global snake_direction
+    if snake_direction != "down":
+        snake_direction = "up"
 
 def go_right():
-    # TO COMPLETE
-
+    global snake_direction
+    if snake_direction != "left":
+        snake_direction = "right"
 
 def go_down():
-    # TO COMPLETE
-
+    global snake_direction
+    if snake_direction != "up":
+        snake_direction = "down"
 
 def go_left():
     global snake_direction
     if snake_direction != "right":
         snake_direction = "left"
+
 
  # The main loop to run the gaim
 def game_loop():
@@ -44,8 +44,8 @@ def game_loop():
     new_head[1] += offsets[snake_direction][1]
 
     # Check collisions
-    if new_head in snake or new_head[0] < - WIDTH / 2 or new_head[0] > WIDTH / 2 \
-            or new_head[1] < - HEIGHT / 2 or new_head[1] > HEIGHT / 2:
+    if new_head in snake or new_head[0] < - Parameters.WIDTH / 2 or new_head[0] > Parameters.WIDTH / 2 \
+            or new_head[1] < - Parameters.HEIGHT / 2 or new_head[1] > Parameters.HEIGHT / 2:
         reset()
     else:
         # Add new head to snake body.
@@ -69,27 +69,33 @@ def game_loop():
 
  # Returns true if the snake eats the food, false otherwise
 def food_collision():
+    pass
     # TO COMPLETE
 
 
  # Create a random position of food.
   # Returns (x,y) the food position. Do not forget to consider FOOD_SIZE
 def get_random_food_pos():
-    # TO COMPLETE
+    x = random.randint(- Parameters.WIDTH / Parameters.FOOD_SIZE, Parameters.WIDTH / 5 * Parameters.FOOD_SIZE)
+    y = random.randint(- Parameters.HEIGHT / Parameters.FOOD_SIZE, Parameters.HEIGHT / 5 * Parameters.FOOD_SIZE)
+    return (x, y)
 
  # Calculate the distance between the two positions and returns the distance
 def get_distance(pos1, pos2):
+    pass
    # TO COMPLETE
 
  # Initialize all parameters to restart the game
  # The initial snake positions parameters are snake = [[0, 0], [20, 0], [40, 0], [60, 0]]
 def reset():
+    global snake,snake_direction
+    snake = [[0, 0], [0, 20], [0, 40], [0, 60], [0, 80]]
     # TO COMPLETE
 
 
 # Create a window where we will do our drawing.
 screen = turtle.Screen()
-screen.setup(WIDTH, HEIGHT)  # Set the dimensions of the Turtle Graphics window.
+screen.setup(Parameters.WIDTH, Parameters.HEIGHT)  # Set the dimensions of the Turtle Graphics window.
 screen.title("Snake")
 screen.bgcolor("pink")
 screen.tracer(0)  # Turn off automatic animation.
@@ -110,7 +116,7 @@ stamper.penup()
 food = turtle.Turtle()
 food.shape("circle")
 food.color("red")
-food.shapesize(FOOD_SIZE / 20)
+food.shapesize(Parameters.FOOD_SIZE / 20)
 food.penup()
 
 # Set animation in motion
