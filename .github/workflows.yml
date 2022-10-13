@@ -1,4 +1,10 @@
-name: Python package
+name: Python is the real snake.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   build:
