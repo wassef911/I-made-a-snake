@@ -31,6 +31,6 @@ jobs:
           isort --check-only --color --diff --atomic --force-alphabetical-sort-within-sections --remove-redundant-aliases --skip migrations --profile=black .
           black --check --diff --skip-string-normalization --exclude migrations .
 
-      - name: Test with pytest
+      - name: Test with nose2
         run: |
           python -m nose2
