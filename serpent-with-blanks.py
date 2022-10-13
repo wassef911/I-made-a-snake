@@ -3,6 +3,7 @@ import turtle
 import random
 
 from src.const import Parameters
+from utils import get_distance
 
 # Cell dimensions to navigate in the serpent matrix
 offsets = {
@@ -33,9 +34,11 @@ def go_left():
     if snake_direction != "right":
         snake_direction = "left"
 
-
- # The main loop to run the gaim
 def game_loop():
+    """
+        The main loop to run the gaim
+    """
+    global snake_direction
      # Cleaning the environment for a new start
     stamper.clearstamps()  # Remove existing stamps made by stamper.
 
@@ -61,36 +64,43 @@ def game_loop():
             stamper.stamp()
 
         # Refresh screen
-        screen.title(f"Snake Game. Score: {score}")
+        screen.title(f"Snake Game. Score: {0}")
         screen.update()
 
         # Rinse and repeat
-        turtle.ontimer(game_loop, DELAY)
+        turtle.ontimer(game_loop, Parameters.DELAY)
 
- # Returns true if the snake eats the food, false otherwise
 def food_collision():
-    pass
-    # TO COMPLETE
+    """
+        Returns true if the snake eats the food, false otherwise
+    """
+    global food_position
+    if get_distance(snake[-1], food_position) < 20:
+        food_position = get_random_food_pos()
+        food.goto(food_position)
+        return True
+    return False
 
-
- # Create a random position of food.
-  # Returns (x,y) the food position. Do not forget to consider FOOD_SIZE
 def get_random_food_pos():
-    x = random.randint(- Parameters.WIDTH / Parameters.FOOD_SIZE, Parameters.WIDTH / 5 * Parameters.FOOD_SIZE)
-    y = random.randint(- Parameters.HEIGHT / Parameters.FOOD_SIZE, Parameters.HEIGHT / 5 * Parameters.FOOD_SIZE)
+    """
+        Create a random position of food.
+        Returns (x,y) the food position. Do not forget to consider FOOD_SIZE
+    """
+    x = random.randint(- Parameters.WIDTH / 2 + Parameters.FOOD_SIZE, Parameters.WIDTH / 2 - Parameters.FOOD_SIZE)
+    y = random.randint(- Parameters.HEIGHT / 2 + Parameters.FOOD_SIZE, Parameters.HEIGHT / 2 - Parameters.FOOD_SIZE)
     return (x, y)
 
- # Calculate the distance between the two positions and returns the distance
-def get_distance(pos1, pos2):
-    pass
-   # TO COMPLETE
-
- # Initialize all parameters to restart the game
- # The initial snake positions parameters are snake = [[0, 0], [20, 0], [40, 0], [60, 0]]
 def reset():
-    global snake,snake_direction
+    """
+        Initialize all parameters to restart the game
+        The initial snake positions parameters are snake = [[0, 0], [20, 0], [40, 0], [60, 0]]
+    """
+    global snake,snake_direction,food_position ,stamper
     snake = [[0, 0], [0, 20], [0, 40], [0, 60], [0, 80]]
-    # TO COMPLETE
+    snake_direction = 'up'
+    food_position = get_random_food_pos()
+    food.goto(food_position)
+    game_loop()
 
 
 # Create a window where we will do our drawing.
