@@ -2,7 +2,7 @@ import unittest
 
 from src.helpers import get_distance
 
-
+# python -m nose2
 class TestSum(unittest.TestCase):
 
     def test_sum(self):
