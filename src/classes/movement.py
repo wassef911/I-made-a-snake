@@ -1,4 +1,4 @@
-class Movement():
+class Movement:
 
     snake_direction = "up"
 
