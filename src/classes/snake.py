@@ -18,7 +18,7 @@ class SnakeGame(GenericSnakeGame, Movement):
             Parameters.WIDTH, Parameters.HEIGHT
         )  # Set the dimensions of the Turtle Graphics window.
         self.screen.title("Snake")
-        self.screen.bgcolor("pink")
+        self.screen.bgcolor("white")
         self.screen.tracer(0)  # Turn off automatic animation.
 
         # Event handlers
