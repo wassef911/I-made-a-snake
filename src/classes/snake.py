@@ -1,9 +1,8 @@
 # Import the Turtle Graphics and random modules
-import random
 import turtle
 
 from src.enum import Parameters
-from src.helpers import get_distance
+from src.helpers import get_random_food_position
 
 from .generic import GenericSnakeGame
 from .movement import Movement
@@ -11,7 +10,7 @@ from .movement import Movement
 
 class SnakeGame(GenericSnakeGame, Movement):
     def __init__(self):
-        self.food_position = self.get_random_food_position()
+        self.food_position = get_random_food_position()
         # Create a window where we will do our drawing.
         self.screen = turtle.Screen()
         self.screen.setup(
@@ -44,31 +43,6 @@ class SnakeGame(GenericSnakeGame, Movement):
         # Finish nicely
         turtle.done()
 
-    def food_collision(self):
-        """
-        Returns true if the snake eats the food, false otherwise
-        """
-        if get_distance(self.snake[-1], self.food_position) < 20:
-            self.food.goto(SnakeGame.get_random_food_position())
-            return True
-        return False
-
-    @staticmethod
-    def get_random_food_position():
-        """
-        Create a random position of food.
-        Returns (x,y) the food position. Do not forget to consider FOOD_SIZE
-        """
-        x = random.randint(
-            -Parameters.WIDTH / 2 + Parameters.FOOD_SIZE,
-            Parameters.WIDTH / 2 - Parameters.FOOD_SIZE,
-        )
-        y = random.randint(
-            -Parameters.HEIGHT / 2 + Parameters.FOOD_SIZE,
-            Parameters.HEIGHT / 2 - Parameters.FOOD_SIZE,
-        )
-        return (x, y)
-
     def reset(self):
         """
         Initialize all parameters to restart the game
@@ -76,8 +50,9 @@ class SnakeGame(GenericSnakeGame, Movement):
         """
         self.snake = [[0, 0], [0, 20], [0, 40], [0, 60], [0, 80]]
         self.snake_direction = 'up'
-        self.food_position = SnakeGame.get_random_food_position()
+        self.food_position = get_random_food_position()
         self.food.goto(self.food_position)
+        self.score = 0
         self.game_loop()
 
     def game_loop(self):
@@ -85,7 +60,7 @@ class SnakeGame(GenericSnakeGame, Movement):
         The main loop to run the gaim
         """
         # Cleaning the environment for a new start
-        self.stamper.clearstamps()  # Remove existing stamps made by stamper.
+        self.stamper.clearstamps()
 
         new_head = self.snake[-1].copy()  # save the snake head
         new_head[0] += self.offsets[self.snake_direction][0]  # Transition action
@@ -114,7 +89,7 @@ class SnakeGame(GenericSnakeGame, Movement):
                 self.stamper.stamp()
 
             # Refresh screen
-            self.screen.title(f"Snake Game. Score: {0}")  # TODO SCORE
+            self.screen.title(f"Snake Game. Score: {self.score}")
             self.screen.update()
 
             # Rinse and repeat
