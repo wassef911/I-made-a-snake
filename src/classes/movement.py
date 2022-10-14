@@ -1,7 +1,6 @@
 class Movement:
 
     snake_direction = "up"
-    snake = [[0, 0], [0, 20], [0, 40], [0, 60], [0, 80]]
 
     def go_up(self):
         if self.snake_direction != "down":

@@ -2,7 +2,7 @@
 import turtle
 
 from src.enum import Parameters
-from src.helpers import get_distance, get_random_food_position
+from src.helpers import get_random_food_position
 
 from .generic import GenericSnakeGame
 from .movement import Movement
@@ -42,17 +42,6 @@ class SnakeGame(GenericSnakeGame, Movement):
 
         # Finish nicely
         turtle.done()
-
-    def food_collision(self):
-        """
-        Returns true if the snake eats the food, false otherwise
-        """
-        if get_distance(self.snake[-1], self.food_position) < self.max_accuracy:
-            self.food_position = get_random_food_position()
-            self.score += 1
-            self.food.goto(self.food_position)
-            return True
-        return False
 
     def reset(self):
         """
