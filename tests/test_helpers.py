@@ -1,6 +1,5 @@
 import unittest
 
-from src.classes.generic import GenericSnakeGame
 from src.helpers import get_distance, get_random_food_position
 
 
@@ -16,6 +15,7 @@ class TestSum(unittest.TestCase):
 
     """ 
     def test_food_collision(self):
+    from src.classes.generic import GenericSnakeGame
         game = GenericSnakeGame()
         game.food_position = game.snake[-1]
         self.assertTrue(game.food_collision())
