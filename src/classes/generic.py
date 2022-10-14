@@ -2,6 +2,7 @@ import turtle
 
 from src.helpers import get_distance, get_random_food_position
 
+
 class GenericSnakeGame:
     score = 0
     snake = [[0, 0], [0, 20], [0, 40], [0, 60], [0, 80]]

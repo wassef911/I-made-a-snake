@@ -60,7 +60,7 @@ class SnakeGame(GenericSnakeGame, Movement):
         The main loop to run the gaim
         """
         # Cleaning the environment for a new start
-        self.stamper.clearstamps() 
+        self.stamper.clearstamps()
 
         new_head = self.snake[-1].copy()  # save the snake head
         new_head[0] += self.offsets[self.snake_direction][0]  # Transition action
@@ -89,7 +89,7 @@ class SnakeGame(GenericSnakeGame, Movement):
                 self.stamper.stamp()
 
             # Refresh screen
-            self.screen.title(f"Snake Game. Score: {self.score}") 
+            self.screen.title(f"Snake Game. Score: {self.score}")
             self.screen.update()
 
             # Rinse and repeat
